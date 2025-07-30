@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends, Query, Request
 from typing import List, Optional
 from uuid import UUID
-from app.modules.accounting.core.schemas.accounting_schemas import (
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import (
     BudgetCreate, BudgetUpdate, BudgetResponse, BudgetListResponse,
     BudgetLineCreate, BudgetLineResponse,
     BudgetApprovalCreate, BudgetApprovalResponse,
@@ -13,14 +13,14 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     BudgetTemplateCreate, BudgetTemplateUpdate, BudgetTemplateResponse, BudgetTemplateListResponse,
     BudgetVarianceListResponse, BudgetVarianceUpdate, BudgetAuditLogUpdate,BudgetAuditLogSummaryResponse
 )
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
-from app.core.database import get_db
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission
+from bheem_core.core.database import get_db
 from sqlalchemy import select, or_, and_
-from app.modules.accounting.core.models.accounting_models import Budget, BudgetLine, BudgetPeriodLine, BudgetApproval, BudgetAllocation, BudgetAllocationLine, BudgetTemplate, BudgetVariance, BudgetAuditLog
+from bheem_core.modules.accounting.core.models.accounting_models import Budget, BudgetLine, BudgetPeriodLine, BudgetApproval, BudgetAllocation, BudgetAllocationLine, BudgetTemplate, BudgetVariance, BudgetAuditLog
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.event_bus import EventBus
-from app.modules.accounting.config import AccountingEventTypes
-from app.modules.accounting.core.services.accounting_service import AccountingService
+from bheem_core.core.event_bus import EventBus
+from bheem_core.modules.accounting.config import AccountingEventTypes
+from bheem_core.modules.accounting.core.services.accounting_service import AccountingService
 
 # Helper to get event bus instance
 
@@ -731,3 +731,4 @@ async def delete_budget_template(template_id: UUID, db: AsyncSession = Depends(g
     if event_bus:
         await event_bus.publish("accounting.budgettemplate.deleted", {"budget_template_id": str(template_id)})
     return None
+

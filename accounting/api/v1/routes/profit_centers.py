@@ -3,9 +3,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.schemas.accounting_schemas import ProfitCenterUpdate, ProfitCenterResponse
-from app.modules.accounting.core.services.accounting_service import ProfitCenterService
-from app.core.database import get_db
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import ProfitCenterUpdate, ProfitCenterResponse
+from bheem_core.modules.accounting.core.services.accounting_service import ProfitCenterService
+from bheem_core.core.database import get_db
 
 router = APIRouter(prefix="/profit-centers", tags=["Profit Centers"])
 
@@ -23,3 +23,4 @@ async def update_profit_center(profit_center_id: UUID, profit_center: ProfitCent
 @router.delete("/{profit_center_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_profit_center(profit_center_id: UUID, db: AsyncSession = Depends(get_db), service: ProfitCenterService = Depends(get_profit_center_service)):
     return None
+

@@ -11,7 +11,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship, object_session
 from sqlalchemy.sql import func
-from app.shared.models import BaseModel
+from bheem_core.shared.models import BaseModel
 import enum
 import uuid
 
@@ -294,3 +294,4 @@ class TaxCode(BaseModel):
     expiry_date = Column(Date)
     is_active = Column(Boolean, default=True)
     description = Column(Text)
+

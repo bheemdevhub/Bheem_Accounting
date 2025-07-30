@@ -3,13 +3,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.schemas.accounting_schemas import JournalEntryCreate, JournalEntryResponse, JournalEntryListResponse, JournalEntryUpdate, JournalEntryLineCreate, JournalEntryLineResponse
-from app.modules.accounting.core.services.accounting_service import JournalEntryService
-from app.core.database import get_db
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import JournalEntryCreate, JournalEntryResponse, JournalEntryListResponse, JournalEntryUpdate, JournalEntryLineCreate, JournalEntryLineResponse
+from bheem_core.modules.accounting.core.services.accounting_service import JournalEntryService
+from bheem_core.core.database import get_db
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
 from functools import partial
-from app.core.event_bus import EventBus
-from app.modules.accounting.config import AccountingEventTypes
+from bheem_core.core.event_bus import EventBus
+from bheem_core.modules.accounting.config import AccountingEventTypes
 from sqlalchemy.orm import selectinload
 from sqlalchemy import select, func
 
@@ -27,7 +27,7 @@ def permission_dep(permission_code: str):
 @router.get("/", response_model=JournalEntryListResponse, dependencies=[Depends(require_roles("Accountant", "Admin", "Viewer")), permission_dep("accounting.view_journal_entry")])
 async def list_journal_entries(skip: int = 0, limit: int = 100, service: JournalEntryService = Depends(get_journal_entry_service)):
     # Use selectinload to eagerly load lines to avoid async context errors
-    from app.modules.accounting.core.models.accounting_models import JournalEntry
+    from bheem_core.modules.accounting.core.models.accounting_models import JournalEntry
     from sqlalchemy.future import select
     db = service.db
     result = await db.execute(
@@ -47,7 +47,7 @@ async def create_journal_entry(entry: JournalEntryCreate, service: JournalEntryS
         company_id = entry.company_id
         db = service.db
         from sqlalchemy import func
-        from app.modules.accounting.core.models.accounting_models import JournalEntry
+        from bheem_core.modules.accounting.core.models.accounting_models import JournalEntry
         # Count existing entries for today and company
         result = await db.execute(
             select(func.count()).select_from(JournalEntry).where(
@@ -122,3 +122,4 @@ async def delete_journal_entry_line(line_id: UUID, service: JournalEntryService 
     # Publish event for line deletion
     await service.event_bus.publish(AccountingEventTypes.JOURNAL_ENTRY_LINE_DELETED, {"line_id": str(line_id)})
     return None
+

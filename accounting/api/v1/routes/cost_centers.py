@@ -3,9 +3,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.schemas.accounting_schemas import CostCenterUpdate, CostCenterResponse
-from app.modules.accounting.core.services.accounting_service import CostCenterService
-from app.core.database import get_db
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import CostCenterUpdate, CostCenterResponse
+from bheem_core.modules.accounting.core.services.accounting_service import CostCenterService
+from bheem_core.core.database import get_db
 
 router = APIRouter(prefix="/cost-centers", tags=["Cost Centers"])
 
@@ -23,3 +23,4 @@ async def update_cost_center(cost_center_id: UUID, cost_center: CostCenterUpdate
 @router.delete("/{cost_center_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_cost_center(cost_center_id: UUID, db: AsyncSession = Depends(get_db), service: CostCenterService = Depends(get_cost_center_service)):
     return None
+

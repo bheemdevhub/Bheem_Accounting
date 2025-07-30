@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.services.accounting_service import CostCenterService
-from app.modules.accounting.core.schemas.accounting_schemas import (
+from bheem_core.modules.accounting.core.services.accounting_service import CostCenterService
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import (
     CostCenterCreate, CostCenterUpdate, CostCenterResponse, CostCenterListResponse
 )
-from app.modules.auth.core.services.permissions_service import get_current_user, require_roles, require_api_permission
-from app.shared.models import UserRole
-from app.core.database import get_db
+from bheem_core.modules.auth.core.services.permissions_service import get_current_user, require_roles, require_api_permission
+from bheem_core.shared.models import UserRole
+from bheem_core.core.database import get_db
 from uuid import UUID
 from typing import List
 from fastapi.responses import Response
@@ -68,3 +68,4 @@ async def delete_cost_center(
     service = CostCenterService(db)
     await service.delete_cost_center(cost_center_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+

@@ -2,7 +2,7 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.modules.accounting.core.schemas.analytics_schemas import (
+from bheem_core.modules.accounting.core.schemas.analytics_schemas import (
     DailyActivityCount, AccountActivitySummary, CashFlowByDay, OutstandingSummary, AssetChangeByDay, UserActivitySummary, TrendSummary, AnalyticsDashboardResponse
 )
 from datetime import date
@@ -106,3 +106,4 @@ class AccountingAnalyticsService:
             user_activity=user_activity,
             trends=trends
         )
+

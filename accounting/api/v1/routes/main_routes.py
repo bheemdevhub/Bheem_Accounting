@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.service import FiscalYearService, FiscalPeriodService, CompanyService, CurrencyService
-from app.modules.accounting.schemas import (
+from bheem_core.modules.accounting.service import FiscalYearService, FiscalPeriodService, CompanyService, CurrencyService
+from bheem_core.modules.accounting.schemas import (
     FiscalYearCreate, FiscalYearUpdate, FiscalYearResponse, FiscalYearListResponse,
     FiscalPeriodCreate, FiscalPeriodUpdate, FiscalPeriodResponse, FiscalPeriodListResponse,
     CompanyCreate, CompanyUpdate, CompanyResponse, CompanyListResponse,
     CurrencyCreate, CurrencyUpdate, CurrencyResponse, CurrencyListResponse
 )
-from app.modules.auth.permissions import get_current_user, require_roles, require_api_permission
-from app.shared.models import UserRole
-from app.core.database import get_db
+from bheem_core.modules.auth.permissions import get_current_user, require_roles, require_api_permission
+from bheem_core.shared.models import UserRole
+from bheem_core.core.database import get_db
 from uuid import UUID
 from typing import List
 from fastapi.responses import Response
@@ -256,6 +256,7 @@ router.include_router(fiscal_period_router)
 router.include_router(company_router)
 router.include_router(currency_router)
 # Add new routers for accounts and cost centers
-from app.modules.accounting.api.v1.routes.accounting_crud_routes import account_router, cost_center_router
+from bheem_core.modules.accounting.api.v1.routes.accounting_crud_routes import account_router, cost_center_router
 router.include_router(account_router)
 router.include_router(cost_center_router)
+

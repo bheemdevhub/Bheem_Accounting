@@ -2,12 +2,12 @@ from fastapi import APIRouter, Depends, Query, status
 from typing import List, Optional
 from datetime import date
 from uuid import UUID
-from app.modules.accounting.core.services.analytics_service import AccountingAnalyticsService
-from app.modules.accounting.core.schemas.analytics_schemas import (
+from bheem_core.modules.accounting.core.services.analytics_service import AccountingAnalyticsService
+from bheem_core.modules.accounting.core.schemas.analytics_schemas import (
     DailyActivityResponse, TrendResponse, TopAccountsResponse, CashFlowResponse, OutstandingResponse, AssetChangeResponse, UserActivityResponse
 )
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
-from app.core.database import get_db
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission
+from bheem_core.core.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/analytics", tags=["Accounting Analytics"])
@@ -75,3 +75,4 @@ async def get_user_activity(
 ):
     service = AccountingAnalyticsService(db)
     return await service.get_user_activity(date_)
+

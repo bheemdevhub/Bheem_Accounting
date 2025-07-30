@@ -72,3 +72,4 @@ class AssetChangeResponse(BaseModel):
 class UserActivityResponse(BaseModel):
     user_activity: List[UserActivitySummary]
 
+

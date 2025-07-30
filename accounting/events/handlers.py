@@ -2,7 +2,7 @@
 """Event handlers for Accounting module"""
 import logging
 from typing import Dict, Any
-from app.modules.accounting.config import AccountingEventTypes
+from bheem_core.modules.accounting.config import AccountingEventTypes
 
 logger = logging.getLogger(__name__)
 
@@ -137,3 +137,4 @@ class AccountingEventHandlers:
         # Create journal entry for adjustment
         # Update inventory records
         # Notify relevant stakeholders
+

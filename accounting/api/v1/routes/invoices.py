@@ -45,3 +45,4 @@ async def get_invoice_pdf(invoice_id: int):
     """Get invoice PDF"""
     # TODO: Implement invoice PDF generation logic
     return {"message": f"Invoice {invoice_id} PDF endpoint - implementation pending"}
+

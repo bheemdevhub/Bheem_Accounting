@@ -3,9 +3,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.schemas.accounting_schemas import BudgetCreate, BudgetUpdate, BudgetResponse, BudgetListResponse
-from app.modules.accounting.core.services.accounting_service import AccountingService
-from app.core.database import get_db
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import BudgetCreate, BudgetUpdate, BudgetResponse, BudgetListResponse
+from bheem_core.modules.accounting.core.services.accounting_service import AccountingService
+from bheem_core.core.database import get_db
 
 router = APIRouter(prefix="/budgets", tags=["Budgets"])
 
@@ -63,3 +63,4 @@ async def list_variances(budget_id: UUID):
 @router.get("/{budget_id}/audit-logs", summary="List audit logs")
 async def list_audit_logs(budget_id: UUID):
     pass
+

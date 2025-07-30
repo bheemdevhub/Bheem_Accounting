@@ -33,3 +33,4 @@ async def get_tax_summary():
     """Generate tax summary report"""
     # TODO: Implement tax summary logic
     return {"message": "Tax summary endpoint - implementation pending"}
+

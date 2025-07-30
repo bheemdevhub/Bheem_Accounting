@@ -3,7 +3,7 @@
 from typing import List
 from ...core.base_module import BaseERPModule
 from .api.v1.routes import accounts, journal_entries, invoices, reports, budget, companies, cost_centers, profit_centers, currencies, fiscal_years
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission
 from .config import AccountingEventTypes, ACCOUNTING_PERMISSIONS
 from .events.handlers import AccountingEventHandlers
 import logging
@@ -81,3 +81,4 @@ class AccountingModule(BaseERPModule):
         self._logger.info("Shutting down Accounting Module")
         # Cleanup resources, close connections, etc.
         await super().shutdown()
+

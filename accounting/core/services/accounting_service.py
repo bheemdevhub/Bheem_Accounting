@@ -2,11 +2,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 from typing import List, Optional
 from uuid import UUID
-from app.core.event_bus import EventBus
-from app.modules.accounting.core.models.accounting_models import LedgerAccount as Account, CostCenter, FiscalYear, FiscalPeriod, BudgetTemplate, BudgetVariance
+from bheem_core.core.event_bus import EventBus
+from bheem_core.modules.accounting.core.models.accounting_models import LedgerAccount as Account, CostCenter, FiscalYear, FiscalPeriod, BudgetTemplate, BudgetVariance
 # If BudgetAuditLog is needed, import from its actual location:
-# from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
-from app.modules.accounting.core.schemas.accounting_schemas import (
+# from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import (
     AccountCreate, AccountUpdate,
     CostCenterCreate, CostCenterUpdate,
     FiscalYearCreate, FiscalYearUpdate,
@@ -28,10 +28,10 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     BudgetTemplateCreate, BudgetTemplateUpdate, BudgetTemplateResponse, BudgetTemplateListResponse,
     BudgetVarianceUpdate, BudgetAuditLogUpdate
 )
-from app.shared.models import Company, Currency
+from bheem_core.shared.models import Company, Currency
 from sqlalchemy import select, or_, func
-from app.modules.accounting.core.schemas.account_response import AccountResponse
-from app.modules.accounting.config import AccountingEventTypes
+from bheem_core.modules.accounting.core.schemas.account_response import AccountResponse
+from bheem_core.modules.accounting.config import AccountingEventTypes
 
 # Dummy event bus instance (replace with real one in app context)
 event_bus = EventBus()
@@ -72,7 +72,7 @@ class AccountingService:
         result = await self.db.execute(stmt)
         accounts = result.scalars().all()
         # Return as AccountListResponse for FastAPI response_model compatibility
-        from app.modules.accounting.core.schemas.accounting_schemas import AccountListResponse
+        from bheem_core.modules.accounting.core.schemas.accounting_schemas import AccountListResponse
         return AccountListResponse(accounts=[AccountResponse.model_validate(account) for account in accounts], total=len(accounts))
 
     async def update_account(self, account_id: UUID, data: AccountUpdate):
@@ -220,7 +220,7 @@ class AccountingService:
 
     async def update_budget_variance(self, variance_id: UUID, data: BudgetVarianceUpdate):
         """Update an existing budget variance"""
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
 
         # Get the existing variance
         result = await self.db.execute(
@@ -250,7 +250,7 @@ class AccountingService:
     
     async def delete_budget_variance(self, variance_id: UUID):
         """Delete a budget variance"""
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
         
         # Get the existing variance
         result = await self.db.execute(
@@ -276,7 +276,7 @@ class AccountingService:
     # --- Budget Audit Log CRUD ---
     async def create_budget_audit_log(self, data: BudgetAuditLogCreate, budget_id: UUID):
         """Create a new budget audit log entry"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog, Budget
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog, Budget
         
         # Validate that budget exists
         budget_result = await self.db.execute(
@@ -305,7 +305,7 @@ class AccountingService:
 
     async def get_budget_audit_log(self, log_id: UUID):
         """Get a single budget audit log entry"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
         
         result = await self.db.execute(
             select(BudgetAuditLog).where(BudgetAuditLog.id == log_id)
@@ -325,7 +325,7 @@ class AccountingService:
         performed_by: Optional[UUID] = None
     ):
         """List all audit logs for a budget"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
         
         stmt = select(BudgetAuditLog).where(BudgetAuditLog.budget_id == budget_id)
         
@@ -345,7 +345,7 @@ class AccountingService:
 
     async def update_budget_audit_log(self, log_id: UUID, data: BudgetAuditLogUpdate):
         """Update a budget audit log entry"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
         
         result = await self.db.execute(
             select(BudgetAuditLog).where(BudgetAuditLog.id == log_id)
@@ -373,7 +373,7 @@ class AccountingService:
 
     async def delete_budget_audit_log(self, log_id: UUID):
         """Delete a budget audit log entry"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
         
         result = await self.db.execute(
             select(BudgetAuditLog).where(BudgetAuditLog.id == log_id)
@@ -396,7 +396,7 @@ class AccountingService:
 
     async def get_budget_audit_summary(self, budget_id: UUID):
         """Get audit summary for a budget"""
-        from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetAuditLog
         
         # Get action counts
         action_counts = await self.db.execute(
@@ -746,8 +746,8 @@ class LedgerAccountService:
     async def delete_account(self, account_id: UUID):
         await event_bus.publish("account.deleted", {"id": str(account_id)}, source_module="accounting")
 
-from app.modules.accounting.core.models.accounting_models import JournalEntry, JournalEntryLine
-from app.modules.accounting.core.schemas.accounting_schemas import JournalEntryCreate, JournalEntryUpdate, JournalEntryResponse, JournalEntryLineCreate
+from bheem_core.modules.accounting.core.models.accounting_models import JournalEntry, JournalEntryLine
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import JournalEntryCreate, JournalEntryUpdate, JournalEntryResponse, JournalEntryLineCreate
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy import update, delete
 import datetime
@@ -962,7 +962,7 @@ class JournalEntryService:
 
     # --- Budget Variance CRUD ---
     async def create_budget_variance(self, data: BudgetVarianceCreate):
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance, BudgetLine
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance, BudgetLine
         
         # Validate that budget_line_id exists
         budget_line_result = await self.db.execute(
@@ -998,7 +998,7 @@ class JournalEntryService:
         return new_variance
 
     async def update_budget_variance(self, variance_id: UUID, data: BudgetVarianceUpdate):
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
         
         result = await self.db.execute(
             select(BudgetVariance).where(BudgetVariance.id == variance_id)
@@ -1024,7 +1024,7 @@ class JournalEntryService:
         return variance
 
     async def delete_budget_variance(self, variance_id: UUID):
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
         
         result = await self.db.execute(
             select(BudgetVariance).where(BudgetVariance.id == variance_id)
@@ -1045,7 +1045,7 @@ class JournalEntryService:
         return True
 
     async def get_budget_variance(self, variance_id: UUID):
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
         
         result = await self.db.execute(
             select(BudgetVariance).where(BudgetVariance.id == variance_id)
@@ -1057,7 +1057,7 @@ class JournalEntryService:
         return variance
 
     async def list_budget_variances(self, budget_line_id: Optional[UUID] = None, skip: int = 0, limit: int = 100):
-        from app.modules.accounting.core.models.accounting_models import BudgetVariance
+        from bheem_core.modules.accounting.core.models.accounting_models import BudgetVariance
         
         stmt = select(BudgetVariance)
         if budget_line_id:
@@ -1066,3 +1066,4 @@ class JournalEntryService:
         
         result = await self.db.execute(stmt)
         return result.scalars().all()
+

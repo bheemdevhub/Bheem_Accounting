@@ -4,13 +4,13 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from typing import List, Optional
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.services.accounting_service import AccountingService
-from app.modules.accounting.core.schemas.accounting_schemas import (
+from bheem_core.modules.accounting.core.services.accounting_service import AccountingService
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import (
     AccountCreate, AccountUpdate, AccountResponse, AccountListResponse
 )
-from app.core.event_bus import EventBus
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
-from app.core.database import get_db
+from bheem_core.core.event_bus import EventBus
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission
+from bheem_core.core.database import get_db
 
 router = APIRouter(tags=["Accounts"])
 
@@ -61,4 +61,5 @@ async def delete_account(account_id: UUID, db: AsyncSession = Depends(get_db), e
     return {"detail": "Account deleted successfully"}
 
 # Only account endpoints remain in this file. Cost center and other endpoints should be in their respective files.
+
 

@@ -5,10 +5,10 @@ from uuid import UUID
 from typing import List, Any
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.core.database import get_db
-from app.modules.accounting.core.models.accounting_models import Currency
-from app.modules.accounting.core.schemas.accounting_schemas import CurrencyCreate, CurrencyResponse
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
+from bheem_core.core.database import get_db
+from bheem_core.modules.accounting.core.models.accounting_models import Currency
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import CurrencyCreate, CurrencyResponse
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
 from functools import partial
 
 router = APIRouter(prefix="/currencies", tags=["Currencies"])
@@ -120,3 +120,4 @@ async def list_exchange_rates():
 @router.post("/exchange-rates", summary="Add exchange rate")
 async def add_exchange_rate():
     pass
+

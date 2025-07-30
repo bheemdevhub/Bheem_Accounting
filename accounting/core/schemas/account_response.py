@@ -18,3 +18,4 @@ class AccountResponse(BaseModel):
     elimination_account: Optional[bool] = None
 
     model_config = ConfigDict(from_attributes=True)
+

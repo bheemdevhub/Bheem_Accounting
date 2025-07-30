@@ -1,13 +1,13 @@
 from sqlalchemy import Column, String, Text, Numeric, Date, ForeignKey, JSON, Enum, Integer, Boolean, UniqueConstraint, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from app.shared.models import BaseModel, Company, Currency, AccountCategory, AccountType, CenterType, ProfitCenterType, CostingMethod, EntryStatus
-from app.shared.models import BudgetType, BudgetStatus, VersionType, AllocationMethod, ApprovalStatus, VarianceType, SignificanceLevel
+from bheem_core.shared.models import BaseModel, Company, Currency, AccountCategory, AccountType, CenterType, ProfitCenterType, CostingMethod, EntryStatus
+from bheem_core.shared.models import BudgetType, BudgetStatus, VersionType, AllocationMethod, ApprovalStatus, VarianceType, SignificanceLevel
 import enum
 import uuid
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import ENUM as PGEnum
-from app.modules.accounting.config import AccountingEventTypes
+from bheem_core.modules.accounting.config import AccountingEventTypes
 
 
 SCHEMA = "accounting"
@@ -52,7 +52,7 @@ class CostCenter(BaseModel):
     cost_center_name = Column(String(255), nullable=False)
     center_type = Column(
         PGEnum(
-            CenterType,  # This should be the Enum class from app.shared.models
+            CenterType,  # This should be the Enum class from bheem_core.shared.models
             name="centertype",
             create_type=False,  # Do not try to create the type, it already exists in DB
             values_callable=lambda x: [e.value for e in x]
@@ -397,6 +397,7 @@ class BudgetAuditLog(BaseModel):
     performed_by = Column(UUID(as_uuid=True), ForeignKey("auth.users.id"))
     performed_at = Column(Date, server_default=func.now())
     details = Column(Text)
+
 
 
 

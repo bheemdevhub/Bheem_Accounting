@@ -4,8 +4,8 @@ from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
 from enum import Enum
-from app.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
-from app.modules.accounting.config import JournalEntryStatus
+from bheem_core.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
+from bheem_core.modules.accounting.config import JournalEntryStatus
 
 # --- Enums ---
 class AccountCategory(str, Enum):
@@ -568,3 +568,4 @@ class BudgetAuditLogSummaryResponse(BaseModel):
     budget_id: UUID
     action_counts: List[Dict[str, Any]]
     recent_activities: List[Dict[str, Any]]
+

@@ -3,13 +3,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.modules.accounting.core.schemas.accounting_schemas import FiscalYearCreate, FiscalYearUpdate, FiscalYearResponse, FiscalYearListResponse, FiscalPeriodCreate, FiscalPeriodUpdate, FiscalPeriodResponse
-from app.modules.accounting.core.services.accounting_service import FiscalYearService
-from app.core.database import get_db
-from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
+from bheem_core.modules.accounting.core.schemas.accounting_schemas import FiscalYearCreate, FiscalYearUpdate, FiscalYearResponse, FiscalYearListResponse, FiscalPeriodCreate, FiscalPeriodUpdate, FiscalPeriodResponse
+from bheem_core.modules.accounting.core.services.accounting_service import FiscalYearService
+from bheem_core.core.database import get_db
+from bheem_core.modules.auth.core.services.permissions_service import require_roles, require_api_permission
 from functools import partial
-from app.core.event_bus import EventBus
-from app.modules.accounting.config import AccountingEventTypes
+from bheem_core.core.event_bus import EventBus
+from bheem_core.modules.accounting.config import AccountingEventTypes
 from typing import List
 
 router = APIRouter(prefix="/fiscal-years", tags=["Fiscal Years"])
@@ -86,3 +86,4 @@ async def delete_period(
 ):
     result = await service.delete_period(period_id)
     return result
+
