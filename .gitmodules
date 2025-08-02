@@ -1,0 +1,43 @@
+[submodule "src/bheem-accounting"]
+	path = src/bheem-accounting
+	url = https://github.com/bheemdevhub/Bheem_Accounting.git
+
+[submodule "src/bheem-auth"]
+	path = src/bheem-auth
+	url = https://github.com/bheemdevhub/Bheem_Auth.git
+
+[submodule "src/bheem-core"]
+	path = src/bheem-core
+	url = https://github.com/bheemdevhub/Bheem_Core_Package.git
+
+[submodule "src/bheem-crm"]
+	path = src/bheem-crm
+	url = https://github.com/bheemdevhub/Bheem_Crm.git
+
+[submodule "src/bheem-hr"]
+	path = src/bheem-hr
+	url = https://github.com/bheemdevhub/Bheem_Hr.git
+
+[submodule "src/bheem-inventory"]
+	path = src/bheem-inventory
+	url = https://github.com/bheemdevhub/Bheem_Inventory.git
+
+[submodule "src/bheem-menu"]
+	path = src/bheem-menu
+	url = https://github.com/bheemdevhub/Bheem_Menu.git
+
+[submodule "src/bheem-project-management"]
+	path = src/bheem-project-management
+	url = https://github.com/bheemdevhub/Bheem_Project_Management.git
+
+[submodule "src/bheem-purchase"]
+	path = src/bheem-purchase
+	url = https://github.com/bheemdevhub/Bheem_Purchase.git
+
+[submodule "src/bheem-sales"]
+	path = src/bheem-sales
+	url = https://github.com/bheemdevhub/Bheem_Sales.git
+
+[submodule "src/bheem-sku"]
+	path = src/bheem-sku
+	url = https://github.com/bheemdevhub/Bheem_Sku.git
