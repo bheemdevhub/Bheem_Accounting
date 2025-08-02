@@ -1,7 +1,12 @@
 # app/modules/accounting/module.py
 """Main Accounting Module Class"""
 from typing import List
-from bheem_core.base_module import BaseERPModule
+
+# Try to import from bheem_core, fallback to local stubs if not available
+try:
+    from bheem_core.base_module import BaseERPModule
+except ImportError:
+    from app.core.bheem_core_stubs import BaseERPModule
 from .api.v1.routes import accounts, journal_entries, invoices, reports, budget, companies, cost_centers, profit_centers, currencies, fiscal_years
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
 from .config import AccountingEventTypes, ACCOUNTING_PERMISSIONS

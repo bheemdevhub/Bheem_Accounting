@@ -8,8 +8,13 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     CurrencyCreate, CurrencyUpdate, CurrencyResponse, CurrencyListResponse
 )
 from app.modules.auth.core.services.permissions_service import get_current_user, require_roles, require_api_permission
-from bheem_core.shared.models import UserRole
-from bheem_core.database import get_db
+
+# Try to import from bheem_core, fallback to local stubs if not available
+try:
+    from bheem_core.shared.models import UserRole
+    from bheem_core.database import get_db
+except ImportError:
+    from app.core.bheem_core_stubs import UserRole, get_db
 from uuid import UUID
 from typing import List
 from fastapi.responses import Response

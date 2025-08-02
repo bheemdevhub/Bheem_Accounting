@@ -4,7 +4,13 @@ from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
 from enum import Enum
-from bheem_core.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
+
+# Try to import from bheem_core, fallback to local stubs if not available
+try:
+    from bheem_core.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
+except ImportError:
+    from app.core.bheem_core_stubs import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
+    
 from app.modules.accounting.config import JournalEntryStatus
 
 # --- Enums ---

@@ -1,7 +1,3 @@
-[submodule "src/bheem-accounting"]
-	path = src/bheem-accounting
-	url = https://github.com/bheemdevhub/Bheem_Accounting.git
-
 [submodule "src/bheem-auth"]
 	path = src/bheem-auth
 	url = https://github.com/bheemdevhub/Bheem_Auth.git

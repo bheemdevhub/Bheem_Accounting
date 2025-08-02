@@ -2,7 +2,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 from typing import List, Optional
 from uuid import UUID
-from bheem_core.event_bus import EventBus
+
+# Try to import from bheem_core, fallback to local stubs if not available
+try:
+    from bheem_core.event_bus import EventBus
+except ImportError:
+    from app.core.bheem_core_stubs import EventBus
 from app.modules.accounting.core.models.accounting_models import LedgerAccount as Account, CostCenter, FiscalYear, FiscalPeriod, BudgetTemplate, BudgetVariance
 # If BudgetAuditLog is needed, import from its actual location:
 # from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
@@ -28,7 +33,12 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     BudgetTemplateCreate, BudgetTemplateUpdate, BudgetTemplateResponse, BudgetTemplateListResponse,
     BudgetVarianceUpdate, BudgetAuditLogUpdate
 )
-from bheem_core.shared.models import Company, Currency
+
+# Try to import from bheem_core, fallback to local stubs if not available
+try:
+    from bheem_core.shared.models import Company, Currency
+except ImportError:
+    from app.core.bheem_core_stubs import Company, Currency
 from sqlalchemy import select, or_, func
 from app.modules.accounting.core.schemas.account_response import AccountResponse
 from app.modules.accounting.config import AccountingEventTypes

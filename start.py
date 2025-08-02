@@ -1,5 +1,7 @@
-# main.py
-
+#!/usr/bin/env python3
+"""
+Startup script that handles both local development and production deployment
+"""
 import sys
 import os
 from pathlib import Path
@@ -32,22 +34,16 @@ def setup_environment():
         # Add current directory to path
         sys.path.insert(0, str(base_path))
 
-# Setup environment before any other imports
-setup_environment()
-
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Now import FastAPI and other modules
-from fastapi import FastAPI
-
-# Import the accounting module router
-from app.modules.accounting.api.routes import router as module_router
-
-# Create FastAPI app
-app = FastAPI(title="Bheem Accounting Module")
-
-# Include accounting router
-app.include_router(module_router, prefix="/api/accounting")
+if __name__ == "__main__":
+    setup_environment()
+    
+    # Now import and run the FastAPI app
+    try:
+        from main import app
+        import uvicorn
+        print("Starting FastAPI application...")
+        uvicorn.run(app, host="0.0.0.0", port=8000)
+    except ImportError as e:
+        print(f"Import error: {e}")
+        print("Python path:", sys.path)
+        sys.exit(1)
