@@ -5,12 +5,14 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     CostCenterCreate, CostCenterUpdate, CostCenterResponse, CostCenterListResponse
 )
 from app.modules.auth.core.services.permissions_service import get_current_user, require_roles, require_api_permission
-from app.shared.models import UserRole
-from app.core.database import get_db
+from bheem_core.shared.models import UserRole
+from bheem_core.database import get_db
 from uuid import UUID
 from typing import List
 from fastapi.responses import Response
 
+# Create routers for accounts and cost centers
+account_router = APIRouter(prefix="/accounts", tags=["Accounts"])
 cost_center_router = APIRouter(prefix="/cost-centers", tags=["Cost Centers"])
 
 @cost_center_router.post("/", response_model=CostCenterResponse, status_code=201, dependencies=[Depends(lambda: require_api_permission("costcenter.create"))])

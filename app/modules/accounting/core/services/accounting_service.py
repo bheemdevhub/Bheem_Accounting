@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 from typing import List, Optional
 from uuid import UUID
-from app.core.event_bus import EventBus
+from bheem_core.event_bus import EventBus
 from app.modules.accounting.core.models.accounting_models import LedgerAccount as Account, CostCenter, FiscalYear, FiscalPeriod, BudgetTemplate, BudgetVariance
 # If BudgetAuditLog is needed, import from its actual location:
 # from app.modules.accounting.core.models.accounting_models import BudgetAuditLog
@@ -28,7 +28,7 @@ from app.modules.accounting.core.schemas.accounting_schemas import (
     BudgetTemplateCreate, BudgetTemplateUpdate, BudgetTemplateResponse, BudgetTemplateListResponse,
     BudgetVarianceUpdate, BudgetAuditLogUpdate
 )
-from app.shared.models import Company, Currency
+from bheem_core.shared.models import Company, Currency
 from sqlalchemy import select, or_, func
 from app.modules.accounting.core.schemas.account_response import AccountResponse
 from app.modules.accounting.config import AccountingEventTypes
@@ -637,7 +637,15 @@ class CompanyService:
         self.db = db
 
     async def create_company(self, data: CompanyCreate):
-        company = Company(**data.dict())
+        # Validate parent company exists if provided
+        if data.parent_company_id:
+            parent_stmt = select(Company).where(Company.id == data.parent_company_id)
+            parent_result = await self.db.execute(parent_stmt)
+            parent_company = parent_result.scalar_one_or_none()
+            if not parent_company:
+                raise HTTPException(status_code=400, detail=f"Parent company with ID {data.parent_company_id} not found")
+        
+        company = Company(**data.model_dump())
         self.db.add(company)
         await self.db.commit()
         await self.db.refresh(company)
@@ -656,7 +664,7 @@ class CompanyService:
         company = await self.get_company(company_id)
         if not company:
             return None
-        for k, v in data.dict(exclude_unset=True).items():
+        for k, v in data.model_dump(exclude_unset=True).items():
             setattr(company, k, v)
         self.db.add(company)
         await self.db.commit()
@@ -678,7 +686,7 @@ class CurrencyService:
         self.db = db
 
     async def create_currency(self, data):
-        currency = Currency(**data.dict())
+        currency = Currency(**data.model_dump())
         self.db.add(currency)
         await self.db.commit()
         await self.db.refresh(currency)
@@ -697,7 +705,7 @@ class CurrencyService:
         currency = await self.get_currency(currency_id)
         if not currency:
             return None
-        for k, v in data.dict(exclude_unset=True).items():
+        for k, v in data.model_dump(exclude_unset=True).items():
             setattr(currency, k, v)
         self.db.add(currency)
         await self.db.commit()

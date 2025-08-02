@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.modules.accounting.core.schemas.accounting_schemas import ProfitCenterUpdate, ProfitCenterResponse
 from app.modules.accounting.core.services.accounting_service import ProfitCenterService
-from app.core.database import get_db
+from bheem_core.database import get_db
 
 router = APIRouter(prefix="/profit-centers", tags=["Profit Centers"])
 

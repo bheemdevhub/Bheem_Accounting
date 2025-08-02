@@ -4,7 +4,7 @@ from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
 from enum import Enum
-from app.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
+from bheem_core.shared.models import ProfitCenterType, BudgetType, AllocationMethod, VarianceType, SignificanceLevel
 from app.modules.accounting.config import JournalEntryStatus
 
 # --- Enums ---
@@ -57,6 +57,8 @@ class CompanyResponse(CompanyBase):
     id: UUID
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
 
 class CompanyListResponse(BaseModel):
     companies: List[CompanyResponse]
@@ -445,12 +447,22 @@ class CurrencyBase(BaseModel):
 class CurrencyCreate(CurrencyBase):
     pass
 
+class CurrencyUpdate(BaseModel):
+    currency_code: Optional[str] = None
+    currency_name: Optional[str] = None
+    symbol: Optional[str] = None
+    decimal_places: Optional[Decimal] = None
+
 class CurrencyResponse(CurrencyBase):
     id: UUID
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class CurrencyListResponse(BaseModel):
+    currencies: List[CurrencyResponse]
+    total: int = 0
 
 class BudgetPeriodLineBase(BaseModel):
     fiscal_period_id: UUID

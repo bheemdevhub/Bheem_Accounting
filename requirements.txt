@@ -56,6 +56,6 @@ websockets==15.0.1
 -e git+ssh://git@github.com/bheemdevhub/Bheem_Purchase.git@053c767d0da46d8ef3041d6f80a4e644a8af04d8#egg=bheem_purchase
 -e git+ssh://git@github.com/bheemdevhub/Bheem_Sales.git@ca5d98062eceab9742afb2e97f532f7a6866cbac#egg=bheem_sales
 -e git+ssh://git@github.com/bheemdevhub/Bheem_Sku.git@efb99af5113eab52453de4752722032f7de25ed9#egg=bheem_sku
--e git+ssh://git@github.com/bheemdevhub/Bheem_Core.git@45cd5785a6cb3ef5f20b93898c792c727ef9e3bd#egg=bheem_core
+-e git+https://github.com/bheemdevhub/Bheem_Core_Package.git@main#egg=bheem_core
 -e git+ssh://git@github.com/bheemdevhub/Bheem_Hr.git@b5098720c073463f93763c62b66b6aa974044a18#egg=bheem_hr
 

@@ -5,10 +5,10 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.modules.accounting.core.schemas.accounting_schemas import JournalEntryCreate, JournalEntryResponse, JournalEntryListResponse, JournalEntryUpdate, JournalEntryLineCreate, JournalEntryLineResponse
 from app.modules.accounting.core.services.accounting_service import JournalEntryService
-from app.core.database import get_db
+from bheem_core.database import get_db
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
 from functools import partial
-from app.core.event_bus import EventBus
+from bheem_core.event_bus import EventBus
 from app.modules.accounting.config import AccountingEventTypes
 from sqlalchemy.orm import selectinload
 from sqlalchemy import select, func

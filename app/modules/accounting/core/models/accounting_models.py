@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String, Text, Numeric, Date, ForeignKey, JSON, Enum, Integer, Boolean, UniqueConstraint, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from app.shared.models import BaseModel, Company, Currency, AccountCategory, AccountType, CenterType, ProfitCenterType, CostingMethod, EntryStatus
-from app.shared.models import BudgetType, BudgetStatus, VersionType, AllocationMethod, ApprovalStatus, VarianceType, SignificanceLevel
+from bheem_core.shared.models import BaseModel, Company, Currency, AccountCategory, AccountType, CenterType, ProfitCenterType, CostingMethod, EntryStatus
+from bheem_core.shared.models import BudgetType, BudgetStatus, VersionType, AllocationMethod, ApprovalStatus, VarianceType, SignificanceLevel
 import enum
 import uuid
 from sqlalchemy import func
@@ -52,7 +52,7 @@ class CostCenter(BaseModel):
     cost_center_name = Column(String(255), nullable=False)
     center_type = Column(
         PGEnum(
-            CenterType,  # This should be the Enum class from app.shared.models
+            CenterType,  # This should be the Enum class from bheem_core.shared.models
             name="centertype",
             create_type=False,  # Do not try to create the type, it already exists in DB
             values_callable=lambda x: [e.value for e in x]

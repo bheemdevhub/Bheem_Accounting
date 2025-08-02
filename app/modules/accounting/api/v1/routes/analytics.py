@@ -7,7 +7,7 @@ from app.modules.accounting.core.schemas.analytics_schemas import (
     DailyActivityResponse, TrendResponse, TopAccountsResponse, CashFlowResponse, OutstandingResponse, AssetChangeResponse, UserActivityResponse
 )
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
-from app.core.database import get_db
+from bheem_core.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/analytics", tags=["Accounting Analytics"])

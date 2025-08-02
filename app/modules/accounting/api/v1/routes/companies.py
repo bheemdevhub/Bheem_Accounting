@@ -7,12 +7,12 @@ from datetime import datetime
 
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user
 from app.modules.accounting.core.schemas.accounting_schemas import CompanyCreate, CompanyResponse
-from app.core.database import get_db
+from bheem_core.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.shared.models import Company as CompanyModel
+from bheem_core.shared.models import Company as CompanyModel
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, or_, and_
-from app.core.event_bus import EventBus
+from bheem_core.event_bus import EventBus
 from app.modules.accounting.core.models.accounting_models import ProfitCenter, CostCenter
 from app.modules.accounting.core.schemas.accounting_schemas import (
     ProfitCenterResponse, ProfitCenterCreate, ProfitCenterUpdate, CostCenterResponse, CostCenterCreate, CostCenterUpdate

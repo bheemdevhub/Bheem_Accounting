@@ -5,7 +5,7 @@ from uuid import UUID
 from typing import List, Any
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.core.database import get_db
+from bheem_core.database import get_db
 from app.modules.accounting.core.models.accounting_models import Currency
 from app.modules.accounting.core.schemas.accounting_schemas import CurrencyCreate, CurrencyResponse
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission, get_current_user

@@ -8,9 +8,9 @@ from app.modules.accounting.core.services.accounting_service import AccountingSe
 from app.modules.accounting.core.schemas.accounting_schemas import (
     AccountCreate, AccountUpdate, AccountResponse, AccountListResponse
 )
-from app.core.event_bus import EventBus
+from bheem_core.event_bus import EventBus
 from app.modules.auth.core.services.permissions_service import require_roles, require_api_permission
-from app.core.database import get_db
+from bheem_core.database import get_db
 
 router = APIRouter(tags=["Accounts"])
 
