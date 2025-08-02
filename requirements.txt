@@ -47,15 +47,15 @@ watchfiles==1.1.0
 websockets==15.0.1
 
 # Editable local modules (correct SSH format)
--e git+ssh://git@github.com/bheemdevhub/Bheem_Accounting.git@7c92b119b2471ed915376bb7f0bc79b78d42e4b3#egg=bheem_accounting
--e git+ssh://git@github.com/bheemdevhub/Bheem_Auth.git@f0c592867b5982d2ffc6289242d72ef95a339569#egg=bheem_auth
--e git+ssh://git@github.com/bheemdevhub/Bheem_Crm.git@87b8b0ca8485d722437c2a43aaa90c1f995c0d25#egg=bheem_crm
--e git+ssh://git@github.com/bheemdevhub/Bheem_Inventory.git@ec91cb949016d4b168f1d41c4ec29d3fc07dc737#egg=bheem_inventory
--e git+ssh://git@github.com/bheemdevhub/Bheem_Menu.git@8695c8ef14c1ceeac8eb5de021a210525d57d18c#egg=bheem_menu
--e git+ssh://git@github.com/bheemdevhub/Bheem_Project_Management.git@8957fb6a925c022bddf70d6beb5bead9b77d42b9#egg=bheem_project_management
--e git+ssh://git@github.com/bheemdevhub/Bheem_Purchase.git@053c767d0da46d8ef3041d6f80a4e644a8af04d8#egg=bheem_purchase
--e git+ssh://git@github.com/bheemdevhub/Bheem_Sales.git@ca5d98062eceab9742afb2e97f532f7a6866cbac#egg=bheem_sales
--e git+ssh://git@github.com/bheemdevhub/Bheem_Sku.git@efb99af5113eab52453de4752722032f7de25ed9#egg=bheem_sku
+-e git+https://github.com/bheemdevhub/Bheem_Accounting.git@7c92b119b2471ed915376bb7f0bc79b78d42e4b3#egg=bheem_accounting
+-e git+https://github.com/bheemdevhub/Bheem_Auth.git@f0c592867b5982d2ffc6289242d72ef95a339569#egg=bheem_auth
+-e git+https://github.com/bheemdevhub/Bheem_Crm.git@87b8b0ca8485d722437c2a43aaa90c1f995c0d25#egg=bheem_crm
+-e git+https://github.com/bheemdevhub/Bheem_Inventory.git@ec91cb949016d4b168f1d41c4ec29d3fc07dc737#egg=bheem_inventory
+-e git+https://github.com/bheemdevhub/Bheem_Menu.git@8695c8ef14c1ceeac8eb5de021a210525d57d18c#egg=bheem_menu
+-e git+https://github.com/bheemdevhub/Bheem_Project_Management.git@8957fb6a925c022bddf70d6beb5bead9b77d42b9#egg=bheem_project_management
+-e git+https://github.com/bheemdevhub/Bheem_Purchase.git@053c767d0da46d8ef3041d6f80a4e644a8af04d8#egg=bheem_purchase
+-e git+https://github.com/bheemdevhub/Bheem_Sales.git@ca5d98062eceab9742afb2e97f532f7a6866cbac#egg=bheem_sales
+-e git+https://github.com/bheemdevhub/Bheem_Sku.git@efb99af5113eab52453de4752722032f7de25ed9#egg=bheem_sku
 -e git+https://github.com/bheemdevhub/Bheem_Core_Package.git@main#egg=bheem_core
--e git+ssh://git@github.com/bheemdevhub/Bheem_Hr.git@b5098720c073463f93763c62b66b6aa974044a18#egg=bheem_hr
+-e git+https://github.com/bheemdevhub/Bheem_Hr.git@b5098720c073463f93763c62b66b6aa974044a18#egg=bheem_hr
 
