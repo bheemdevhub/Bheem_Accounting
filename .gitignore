@@ -10,3 +10,6 @@ build/
 .idea/
 .vscode/
 *.log
+
+# Prevent circular submodule reference
+src/bheem-accounting/
